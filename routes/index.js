@@ -20,10 +20,10 @@ router.get('/mongodb', function (request, response) {
 
     //get collection of routes
     var db = client.db('heroku_v1ch6rsq');  // in v3 we need to get the db from the client
-    var Routes = db.collection('Routes');
+    var Users = db.collection('Users');
 
     //get all Routes with frequency >=1
-    Routes.find({ frequency : { $gte: 0 } }).sort({ name: 1 }).toArray(function (err, docs) {
+    Users.find({}).sort({ name: 1 }).toArray(function (err, docs) {
       if(err) throw err;
       response.render('mongodb', {results: docs});
     });
