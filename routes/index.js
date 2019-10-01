@@ -4,33 +4,30 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Node.JS + Express' });
 });
 
 module.exports = router;
 
-//*************************************************************************
-//***** mongodb get all of the Routes in Routes collection where frequence>=1
-//      and sort by the name of the route.  Render information in the views/pages/mongodb.ejs
+// MongoDB get all of the Users from the Users collection & render information in views/mongodb.ejs
 
 router.get('/mongodb', function (request, response) {
-  mongodb.MongoClient.connect('mongodb://heroku_v1ch6rsq:k7r9ljr7sbji70jdaairb6ihvv@ds157857.mlab.com:57857/heroku_v1ch6rsq', function(err, client) {
+  mongodb.MongoClient.connect('mongodb://heroku_v1ch6rsq:k7r9ljr7sbji70jdaairb6ihvv@ds157857.mlab.com:57857/heroku_v1ch6rsq', { "useNewUrlParser": true, "useUnifiedTopology": true }, function(err, client) {
 
     if(err) throw err;
 
-    //get collection of routes
+    // Get Users collection
     var db = client.db('heroku_v1ch6rsq');  // in v3 we need to get the db from the client
     var Users = db.collection('Users');
 
-    //get all Routes with frequency >=1
-    Users.find({}).sort({ name: 1 }).toArray(function (err, docs) {
+    // Get all documents from Users collection
+    Users.find().toArray(function (err, docs) {
       if(err) throw err;
       response.render('mongodb', {results: docs});
     });
 
-    //close connection when your app is terminating.
-    // db.close(function (err) {
-    client.close(function (err) {
+    // Close connection when your app is terminating.
+    client.close(false,function (err) {
       if(err) throw err;
     });
   });//end of connect

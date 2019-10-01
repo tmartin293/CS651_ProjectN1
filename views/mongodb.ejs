@@ -4,12 +4,13 @@
 </head>
 <body>
 <div class="container">
-    <h2>MongoDB Database Results getting Routes frequency >= 1</h2>
-    <ul>
-        <% results.forEach(function(r) { %>
-            <li><%= r.first_name %> <%= r.last_name %></li>
+    <h1>MongoDB Database Results</h1>
+    <h3>Users:</h3>
+    <ol type="1">
+        <% results.forEach(function(document) { %>
+            <li><%= document.first_name %> <%= document.last_name %></li>
         <% }); %>
-    </ul>
+    </ol>
 </div>
 </body>
 </html>
