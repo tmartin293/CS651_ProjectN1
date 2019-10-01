@@ -12,7 +12,7 @@ module.exports = router;
 // MongoDB get all of the Users from the Users collection & render information in views/mongodb.ejs
 
 router.get('/mongodb', function (request, response) {
-  mongodb.MongoClient.connect('mongodb://heroku_v1ch6rsq:k7r9ljr7sbji70jdaairb6ihvv@ds157857.mlab.com:57857/heroku_v1ch6rsq', { "useNewUrlParser": true, "useUnifiedTopology": true }, function(err, client) {
+  mongodb.MongoClient.connect(process.env.MONGODB_URI, { "useNewUrlParser": true, "useUnifiedTopology": true }, function(err, client) {
 
     if(err) throw err;
 
